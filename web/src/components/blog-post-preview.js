@@ -4,30 +4,30 @@ import { buildImageObj, cn, getBlogUrl } from '../lib/helpers'
 import { imageUrlFor } from '../lib/image-url'
 import BlockText from './block-text'
 
+import Img from 'gatsby-image'
 import styles from './blog-post-preview.module.css'
 import { responsiveTitle3 } from './typography.module.css'
+import { Box, Grid } from '@chakra-ui/layout'
+import { Button } from '@chakra-ui/button'
 
-function BlogPostPreview (props) {
+function BlogPostPreview(props) {
   return (
-    <Link className={styles.root} to={getBlogUrl(props.publishedAt, props.slug.current)}>
-      <div className={styles.leadMediaThumb}>
-        {props.mainImage && props.mainImage.asset && (
-          <img
-            src={imageUrlFor(buildImageObj(props.mainImage))
-              .width(600)
-              .height(Math.floor((9 / 16) * 600))
-              .url()}
-            alt={props.mainImage.alt}
-          />
+    <>
+      {props.mainImage && props.mainImage.asset && <Img fluid={props.mainImage.asset.fluid} />}
+      <Box as='h3' fontSize='24px' fontWeight='bold' color='gray.600'>
+        {props.title}
+      </Box>
+      <Box>
+        {props._rawExcerpt && (
+          <div className={styles.excerpt}>
+            <BlockText blocks={props._rawExcerpt} />
+          </div>
         )}
-      </div>
-      <h3 className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
-      {props._rawExcerpt && (
-        <div className={styles.excerpt}>
-          <BlockText blocks={props._rawExcerpt} />
-        </div>
-      )}
-    </Link>
+        <Button mt='8px' variant='outline' borderRadius='0px' colorScheme='orange'>
+          Read more
+        </Button>
+      </Box>
+    </>
   )
 }
 

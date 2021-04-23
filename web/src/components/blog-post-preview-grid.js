@@ -1,34 +1,54 @@
+import { Button } from '@chakra-ui/button'
+import { Box, Grid, GridItem } from '@chakra-ui/layout'
 import { Link } from 'gatsby'
 import React from 'react'
+import { getBlogUrl } from '../lib/helpers'
 import BlogPostPreview from './blog-post-preview'
 
 import styles from './blog-post-preview-grid.module.css'
 
-function BlogPostPreviewGrid (props) {
+function BlogPostPreviewGrid(props) {
   return (
     <div className={styles.root}>
       {props.title && (
-        <h2 className={styles.headline}>
+        <Box as='h2' fontSize='32px' fontWeight='bold' color='orange.500' mb='32px'>
           {props.browseMoreHref ? (
             <Link to={props.browseMoreHref}>{props.title}</Link>
           ) : (
             props.title
           )}
-        </h2>
+        </Box>
       )}
-      <ul className={styles.grid}>
+      <Grid
+        gridTemplateColumns='repeat(auto-fill, minmax(300px, 1fr))'
+        gridAutoRows='600px auto auto'
+        gridGap='60px'
+      >
         {props.nodes &&
           props.nodes.map(node => (
-            <li key={node.id}>
+            <Grid
+              as={Link}
+              gridTemplateRows='1fr auto auto'
+              padding='24px'
+              gridGap='8px'
+              // gridRow='span 3'
+              to={getBlogUrl(node.publishedAt, node.slug.current)}
+              border='1px solid var(--chakra-colors-gray-200)'
+              key={node.id}
+            >
               <BlogPostPreview {...node} />
-            </li>
+            </Grid>
           ))}
-      </ul>
-      {props.browseMoreHref && (
-        <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref}>Browse more</Link>
-        </div>
-      )}
+      </Grid>
+      <Box textAlign='center' mt='24px'>
+        {props.browseMoreHref && (
+          <Link to={props.browseMoreHref}>
+            <Button colorScheme='orange' borderRadius='0px'>
+              Browse more
+            </Button>
+          </Link>
+        )}
+      </Box>
     </div>
   )
 }

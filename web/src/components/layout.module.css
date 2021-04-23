@@ -1,16 +1,7 @@
 @import '../styles/media-queries.css';
 @import '../styles/vars.css';
 
-.content {
-  min-height: calc(100% - 73px - 152px);
-
-  @media (--media-min-small) {
-    min-height: calc(100% - 90px - 169px);
-  }
-}
-
 .footer {
-
 }
 
 .footerWrapper {
