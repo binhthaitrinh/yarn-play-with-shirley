@@ -1,7 +1,7 @@
 require('dotenv').config()
-// const {
-//   api: { projectId, dataset }
-// } = requireConfig('../studio/sanity.json')
+const {
+  api: { projectId, dataset }
+} = requireConfig('../studio/sanity.json')
 
 module.exports = {
   plugins: [
@@ -10,8 +10,8 @@ module.exports = {
     {
       resolve: 'gatsby-source-sanity',
       options: {
-        projectId: process.env.SANITY_PROJECT_ID,
-        dataset: process.env.SANITY_DATASET,
+        projectId,
+        dataset,
         // To enable preview of drafts, copy .env-example into .env,
         // and add a token with read permissions
         token: process.env.SANITY_TOKEN,
@@ -28,7 +28,19 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `@chakra-ui/gatsby-plugin`
+    `@chakra-ui/gatsby-plugin`,
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'Yarn play with Shirley',
+        short_name: 'YarnPlay',
+        start_url: '/',
+        background_color: '#fff',
+        theme_color: '#dd6b20',
+        display: 'standalone',
+        icon: 'src/images/logo.png'
+      }
+    }
   ]
 }
 
@@ -39,18 +51,18 @@ module.exports = {
  * with directions to enter the info manually or in the environment.
  */
 
-// function requireConfig(path) {
-//   try {
-//     return require(path)
-//   } catch (e) {
-//     console.error(
-//       'Failed to require sanity.json. Fill in projectId and dataset name manually in gatsby-config.js'
-//     )
-//     return {
-//       api: {
-//         projectId: process.env.SANITY_PROJECT_ID || '',
-//         dataset: process.env.SANITY_DATASET || ''
-//       }
-//     }
-//   }
-// }
+function requireConfig(path) {
+  try {
+    return require(path)
+  } catch (e) {
+    console.error(
+      'Failed to require sanity.json. Fill in projectId and dataset name manually in gatsby-config.js'
+    )
+    return {
+      api: {
+        projectId: process.env.SANITY_PROJECT_ID || '',
+        dataset: process.env.SANITY_DATASET || ''
+      }
+    }
+  }
+}

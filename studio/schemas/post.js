@@ -6,7 +6,8 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      type: 'string'
+      type: 'string',
+      validation: Rule => Rule.required()
     },
     {
       name: 'slug',
@@ -27,7 +28,9 @@ export default {
     {
       name: 'excerpt',
       title: 'Excerpt',
-      type: 'blockText'
+      type: 'blockText',
+
+      validation: Rule => Rule.required()
     },
     {
       name: 'authors',
@@ -38,7 +41,8 @@ export default {
     {
       name: 'mainImage',
       title: 'Main image',
-      type: 'mainImage'
+      type: 'mainImage',
+      validation: Rule => Rule.required()
     },
     {
       name: 'categories',
@@ -49,9 +53,13 @@ export default {
     {
       name: 'body',
       title: 'Body',
-      type: 'blockContent'
+      type: 'blockContent',
+      validation: Rule => Rule.required()
     }
   ],
+  initialValue: {
+    publishedAt: new Date().toISOString()
+  },
   orderings: [
     {
       title: 'Publishing date new–>old',
@@ -70,14 +78,14 @@ export default {
       publishedAt: 'publishedAt',
       image: 'mainImage'
     },
-    prepare ({ title = 'No title', publishedAt, image }) {
+    prepare({ title = 'No title', publishedAt, image }) {
       return {
         title,
         subtitle: publishedAt
           ? new Date(publishedAt).toLocaleDateString()
           : 'Missing publishing date',
         media: image
-      }
+      };
     }
   }
-}
+};
