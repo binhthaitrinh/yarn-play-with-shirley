@@ -6,7 +6,7 @@ import BlockText from './block-text'
 import Img from 'gatsby-image'
 import styles from './blog-post-preview.module.css'
 import { responsiveTitle3 } from './typography.module.css'
-import { Box, Grid } from '@chakra-ui/layout'
+import { Box, Text } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 
 function BlogPostPreview(props) {
@@ -22,6 +22,11 @@ function BlogPostPreview(props) {
             <BlockText blocks={props._rawExcerpt} />
           </div>
         )}
+        <Text color='gray.400'>
+          {new Intl.DateTimeFormat('en-US', {
+            dateStyle: 'medium'
+          }).format(new Date(props.publishedAt))}
+        </Text>
         <Button mt='8px' variant='outline' borderRadius='0px' colorScheme='orange'>
           Read more
         </Button>

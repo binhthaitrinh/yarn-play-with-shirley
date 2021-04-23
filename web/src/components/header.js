@@ -8,15 +8,17 @@ import { IoIosMail } from 'react-icons/io'
 import styles from './header.module.css'
 import ExternalLink from './ExternalLink'
 
-const NavItem = ({ to, name, ...props }) => (
+const NavItem = ({ to, name, activeStyle, ...props }) => (
   <ListItem _hover={{ color: 'orange.400' }} {...props}>
-    <Link to={to}>{name}</Link>
+    <Link to={to} activeStyle={activeStyle}>
+      {name}
+    </Link>
   </ListItem>
 )
 
 const Button2 = props => <Button variant='outline' px='12px' {...props} />
 
-const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
+const Header = ({ onHideNav, onShowNav, showNav, siteTitle, ...props }) => {
   const [showMenu, setShowMenu] = React.useState(false)
   return (
     <Box
@@ -81,10 +83,29 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
         marginInlineStart='0px !important'
         mt={['8px', 0]}
       >
-        <NavItem to='/' name='Home' mr={[0, '16px']} />
-        <NavItem to='/about' name='About' mr={[0, '16px']} />
-        <NavItem to='/' name='Blog' mr={[0, '16px']} />
-        <NavItem to='/contact' name='Contact' />
+        <NavItem
+          to='/'
+          name='Home'
+          mr={[0, '16px']}
+          activeStyle={{ color: 'var(--chakra-colors-orange-500)' }}
+        />
+        <NavItem
+          to='/about'
+          name='About'
+          mr={[0, '16px']}
+          activeStyle={{ color: 'var(--chakra-colors-orange-500)' }}
+        />
+        <NavItem
+          to='/blog'
+          name='Blog'
+          mr={[0, '16px']}
+          activeStyle={{ color: 'var(--chakra-colors-orange-500)' }}
+        />
+        <NavItem
+          to='/contact'
+          name='Contact'
+          activeStyle={{ color: 'var(--chakra-colors-orange-500)' }}
+        />
       </Box>
       <Box as='p' display={['none', 'block']}>
         Hello, friend

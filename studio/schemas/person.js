@@ -1,4 +1,4 @@
-import { MdPerson } from 'react-icons/md'
+import { MdPerson } from 'react-icons/md';
 
 export default {
   name: 'person',
@@ -10,7 +10,9 @@ export default {
     {
       name: 'name',
       title: 'Name',
-      type: 'string'
+      type: 'string',
+
+      validation: Rule => Rule.required()
     },
     {
       name: 'slug',
@@ -28,7 +30,9 @@ export default {
       type: 'image',
       options: {
         hotspot: true
-      }
+      },
+
+      validation: Rule => Rule.required()
     },
     {
       name: 'bio',
@@ -50,4 +54,4 @@ export default {
       media: 'image'
     }
   }
-}
+};

@@ -6,7 +6,7 @@ const { format } = require('date-fns')
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-async function createBlogPostPages (graphql, actions, reporter) {
+async function createBlogPostPages(graphql, actions, reporter) {
   const { createPage } = actions
   const result = await graphql(`
     {
@@ -43,7 +43,48 @@ async function createBlogPostPages (graphql, actions, reporter) {
   })
 }
 
-async function createProjectPages (graphql, actions, reporter) {
+async function createBlogPagination(graphql, actions, reporter) {
+  const { createPage } = actions
+  const result = await graphql(
+    `
+      {
+        allSanityPost(sort: { fields: publishedAt, order: DESC }) {
+          edges {
+            node {
+              slug {
+                current
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
+  if (result.errors) {
+    reporter.panicOnBuild('Error while creating blog pagnation')
+    return
+  }
+
+  const posts = result.data.allSanityPost.edges
+  const postsPerPage = 6
+  const numPages = Math.ceil(posts.length / postsPerPage)
+  posts.forEach((_post, i) => {
+    reporter.info(`Creating project page: /blog/${i + 1}`)
+    createPage({
+      path: i === 0 ? '/blog' : `/blog/${i + 1}`,
+      component: require.resolve('./src/templates/blog.js'),
+      context: {
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        numPages,
+        currentPage: i + 1
+      }
+    })
+  })
+}
+
+async function createProjectPages(graphql, actions, reporter) {
   const { createPage } = actions
   const result = await graphql(`
     {
@@ -82,4 +123,5 @@ async function createProjectPages (graphql, actions, reporter) {
 exports.createPages = async ({ graphql, actions, reporter }) => {
   await createBlogPostPages(graphql, actions, reporter)
   await createProjectPages(graphql, actions, reporter)
+  await createBlogPagination(graphql, actions, reporter)
 }

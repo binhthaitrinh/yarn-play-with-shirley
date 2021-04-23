@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import { mapEdgesToNodes } from '../lib/helpers'
 import BlogPostPreviewGrid from '../components/blog-post-preview-grid'
 import Container from '../components/container'
@@ -8,11 +8,12 @@ import SEO from '../components/seo'
 import Layout from '../containers/layout'
 
 import { responsiveTitle1 } from '../components/typography.module.css'
-import { Box } from '@chakra-ui/layout'
+import { Box, HStack } from '@chakra-ui/layout'
+import { Button } from '@chakra-ui/button'
 
 export const query = graphql`
-  query BlogPageQuery {
-    posts: allSanityPost(limit: 12, sort: { fields: [publishedAt], order: DESC }) {
+  query BlogPageQuery($skip: Int!, $limit: Int!) {
+    posts: allSanityPost(limit: $limit, sort: { fields: [publishedAt], order: DESC }, skip: $skip) {
       edges {
         node {
           id
@@ -36,7 +37,8 @@ export const query = graphql`
 `
 
 const BlogPage = props => {
-  const { data, errors } = props
+  const { data, errors, pageContext } = props
+  console.log(props)
 
   if (errors) {
     return (
@@ -56,6 +58,22 @@ const BlogPage = props => {
           Blog
         </Box>
         {postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes} />}
+        <HStack justifyContent='center'>
+          <Link to={`/blog/${pageContext.currentPage === 2 ? '' : pageContext.currentPage - 1}`}>
+            <Button colorScheme='orange' variant='outline' disabled={pageContext.currentPage === 1}>
+              Prev
+            </Button>
+          </Link>
+          <Link to={`/blog/${pageContext.currentPage + 1}`}>
+            <Button
+              colorScheme='orange'
+              variant='outline'
+              disabled={pageContext.currentPage === pageContext.numPages}
+            >
+              Next
+            </Button>
+          </Link>
+        </HStack>
       </Container>
     </Layout>
   )
