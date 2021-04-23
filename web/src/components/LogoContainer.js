@@ -20,9 +20,9 @@ export default function LogoContainer() {
   `)
   console.log(data)
   return (
-    <HStack justifyContent="center" py="30px">
-      <Link to="/">
-        <Box width="300px">
+    <HStack justifyContent='center' py='30px'>
+      <Link to='/'>
+        <Box width={['220px', '300px']}>
           <Img fluid={data.file.childImageSharp.fluid} alt={data.site.title} />
         </Box>
       </Link>

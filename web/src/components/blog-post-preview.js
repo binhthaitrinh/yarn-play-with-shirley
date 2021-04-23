@@ -1,7 +1,6 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import { buildImageObj, cn, getBlogUrl } from '../lib/helpers'
-import { imageUrlFor } from '../lib/image-url'
 import BlockText from './block-text'
 
 import Img from 'gatsby-image'

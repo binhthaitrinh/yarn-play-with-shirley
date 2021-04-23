@@ -8,7 +8,7 @@ import RoleList from './role-list'
 
 import styles from './blog-post.module.css'
 
-function BlogPost (props) {
+function BlogPost(props) {
   const { _rawBody, authors, categories, title, mainImage, publishedAt } = props
   return (
     <article className={styles.root}>

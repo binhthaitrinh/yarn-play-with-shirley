@@ -23,7 +23,7 @@ export const query = graphql`
           publishedAt
           mainImage {
             asset {
-              fluid(maxWidth: 400) {
+              fluid(maxWidth: 300) {
                 ...GatsbySanityImageFluid
               }
             }

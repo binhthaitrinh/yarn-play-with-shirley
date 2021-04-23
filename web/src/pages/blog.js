@@ -8,6 +8,7 @@ import SEO from '../components/seo'
 import Layout from '../containers/layout'
 
 import { responsiveTitle1 } from '../components/typography.module.css'
+import { Box } from '@chakra-ui/layout'
 
 export const query = graphql`
   query BlogPageQuery {
@@ -18,9 +19,10 @@ export const query = graphql`
           publishedAt
           mainImage {
             asset {
-              _id
+              fluid(maxWidth: 300) {
+                ...GatsbySanityImageFluid
+              }
             }
-            alt
           }
           title
           _rawExcerpt
@@ -50,7 +52,9 @@ const BlogPage = props => {
     <Layout>
       <SEO title='Blog' />
       <Container>
-        <h1 className={responsiveTitle1}>Blog</h1>
+        <Box as='h1' fontSize='32px' fontWeight='bold' color='orange.500'>
+          Blog
+        </Box>
         {postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes} />}
       </Container>
     </Layout>
