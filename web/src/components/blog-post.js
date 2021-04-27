@@ -6,6 +6,7 @@ import BlockContent from './block-content'
 import Container from './container'
 import RoleList from './role-list'
 
+import Img from 'gatsby-image'
 import styles from './blog-post.module.css'
 
 function BlogPost(props) {
@@ -13,18 +14,7 @@ function BlogPost(props) {
   return (
     <article className={styles.root}>
       <Container>
-        {mainImage && mainImage.asset && (
-          <div className={styles.mainImage}>
-            <img
-              src={imageUrlFor(buildImageObj(mainImage))
-                .width(800)
-                .height(Math.floor((16 / 9) * 800))
-                .fit('crop')
-                .url()}
-              alt={mainImage.alt}
-            />
-          </div>
-        )}
+        {mainImage && mainImage.asset && <Img fluid={mainImage.asset.fluid} />}
         <div className={styles.grid}>
           <div className={styles.mainContent}>
             <h1 className={styles.title}>{title}</h1>

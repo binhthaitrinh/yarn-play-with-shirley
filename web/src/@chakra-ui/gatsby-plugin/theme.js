@@ -26,7 +26,8 @@ const theme = {
         listStylePosition: 'inside'
       },
       a: {
-        textDecoration: 'none'
+        textDecoration: 'none',
+        color: 'var(--chakra-colors-orange-400)'
       },
       'p > a > code': {
         color: 'var(--chakra-colors-blue-600)'

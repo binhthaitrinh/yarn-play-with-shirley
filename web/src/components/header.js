@@ -3,14 +3,14 @@ import React from 'react'
 import { cn } from '../lib/helpers'
 import { Box, Button, HStack, Icon, ListItem, UnorderedList, VStack } from '@chakra-ui/react'
 import { RiInstagramFill } from 'react-icons/ri'
-import { SiTiktok } from 'react-icons/si'
+import { SiTiktok, SiPinterest, SiEtsy } from 'react-icons/si'
 import { IoIosMail } from 'react-icons/io'
 import styles from './header.module.css'
 import ExternalLink from './ExternalLink'
 
 const NavItem = ({ to, name, activeStyle, ...props }) => (
   <ListItem _hover={{ color: 'orange.400' }} {...props}>
-    <Link to={to} activeStyle={activeStyle}>
+    <Link to={to} activeStyle={activeStyle} style={{ color: 'var(--chakra-colors-gray-500)' }}>
       {name}
     </Link>
   </ListItem>
@@ -35,15 +35,23 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle, ...props }) => {
       zIndex='999'
       flexDirection={['column', 'row']}
     >
-      <HStack spacing='12px' alignItems='center'>
-        <ExternalLink href='/'>
-          <Icon as={RiInstagramFill} height='22px' width='22px' color='gray.400' />
+      <HStack spacing='12px' alignItems='center' justifyContent='center'>
+        <ExternalLink href='https://www.instagram.com/shirleyfreepatterns/'>
+          <Icon as={RiInstagramFill} height='23px' width='23px' color='gray.400' />
         </ExternalLink>
-        <ExternalLink href='/'>
+
+        <ExternalLink href='https://www.pinterest.com/yarnplaywithShirley/'>
+          <Icon as={SiPinterest} height='22px' width='22px' color='gray.400' />
+        </ExternalLink>
+        <ExternalLink href='mailto:shirleyyarnplay@gmail.com'>
+          <Icon as={IoIosMail} height='25px' width='25px' color='gray.400' />
+        </ExternalLink>
+        <ExternalLink href='https://www.tiktok.com/@shirleyyarnplay?lang=en/'>
           <Icon as={SiTiktok} height='22px' width='22px' color='gray.400' />
         </ExternalLink>
-        <ExternalLink href='/'>
-          <Icon as={IoIosMail} height='22px' width='22px' color='gray.400' />
+
+        <ExternalLink href='https://www.etsy.com/people/xhhgtwgej6bqexpw?ref=hdr_user_menu-profile&expanded_profile=1/'>
+          <Icon as={SiEtsy} height='22px' width='22px' color='gray.400' />
         </ExternalLink>
       </HStack>
       <VStack
@@ -88,6 +96,7 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle, ...props }) => {
           name='Home'
           mr={[0, '16px']}
           activeStyle={{ color: 'var(--chakra-colors-orange-500)' }}
+          color='gray.400'
         />
         <NavItem
           to='/about'

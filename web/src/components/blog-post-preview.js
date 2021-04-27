@@ -18,7 +18,7 @@ function BlogPostPreview(props) {
       </Box>
       <Box>
         {props._rawExcerpt && (
-          <div className={styles.excerpt}>
+          <div className={styles.excerpt} style={{ color: 'var(--chakra-colors-gray-500)' }}>
             <BlockText blocks={props._rawExcerpt} />
           </div>
         )}

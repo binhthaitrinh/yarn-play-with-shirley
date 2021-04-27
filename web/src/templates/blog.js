@@ -60,7 +60,12 @@ const BlogPage = props => {
         {postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes} />}
         <HStack justifyContent='center'>
           <Link to={`/blog/${pageContext.currentPage === 2 ? '' : pageContext.currentPage - 1}`}>
-            <Button colorScheme='orange' variant='outline' disabled={pageContext.currentPage === 1}>
+            <Button
+              borderRadius={0}
+              colorScheme='orange'
+              variant='outline'
+              disabled={pageContext.currentPage === 1}
+            >
               Prev
             </Button>
           </Link>
@@ -69,6 +74,7 @@ const BlogPage = props => {
               colorScheme='orange'
               variant='outline'
               disabled={pageContext.currentPage === pageContext.numPages}
+              borderRadius={0}
             >
               Next
             </Button>
