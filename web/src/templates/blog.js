@@ -38,7 +38,6 @@ export const query = graphql`
 
 const BlogPage = props => {
   const { data, errors, pageContext } = props
-  console.log(props)
 
   if (errors) {
     return (

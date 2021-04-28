@@ -7,7 +7,19 @@ import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import BlockText from '../components/block-text'
 import { Box, VStack } from '@chakra-ui/layout'
-import { PinterestIcon, PinterestShareButton } from 'react-share'
+import {
+  PinterestIcon,
+  PinterestShareButton,
+  EmailShareButton,
+  EmailIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  RedditShareButton,
+  RedditIcon,
+  TwitterIcon,
+  TwitterShareButton
+} from 'react-share'
+import { format } from 'date-fns'
 
 function toPlainText(blocks = []) {
   return (
@@ -123,16 +135,52 @@ const BlogPostTemplate = props => {
       )}
 
       {post && <BlogPost {...post} />}
-      <Box position='fixed' top='50%' transform='translateY(-50%)'>
-        <VStack alignItems='center' spacing={0} color='white'>
+      <Box position='fixed' top='50%' transform='translateY(-50%)' zIndex='9999' left='8px'>
+        <VStack alignItems='center' color='white' spacing='8px'>
           <PinterestShareButton
-            // href='https://www.pinterest.com/yarnplaywithShirley/'
-            style={{ backgroundColor: 'E71B22', padding: '10px' }}
             media={post.mainImage.asset.fluid.srcWebp}
-            url={post.mainImage.asset.fluid.srcWebp}
+            url={`https://www.yarnplaywithshirley.com/blog/${format(post.publishedAt, 'YYYY/MM')}/${
+              post.slug.current
+            }`}
+            description={toPlainText(post._rawExcerpt) || 'No description'}
           >
-            <PinterestIcon size={32} round />
+            <PinterestIcon size={40} round />
           </PinterestShareButton>
+          <EmailShareButton
+            url={`https://www.yarnplaywithshirley.com/blog/${format(post.publishedAt, 'YYYY/MM')}/${
+              post.slug.current
+            }`}
+            body={toPlainText(post._rawExcerpt) || 'No description'}
+            subject={post.title || 'No title'}
+          >
+            <EmailIcon size={40} round />
+          </EmailShareButton>
+          <FacebookShareButton
+            url={`https://www.yarnplaywithshirley.com/blog/${format(post.publishedAt, 'YYYY/MM')}/${
+              post.slug.current
+            }`}
+            quote='OMG This is amazing!'
+          >
+            <FacebookIcon size={40} round />
+          </FacebookShareButton>
+          <RedditShareButton
+            url={`https://www.yarnplaywithshirley.com/blog/${format(post.publishedAt, 'YYYY/MM')}/${
+              post.slug.current
+            }`}
+            title={post.title}
+            windowWidth={660}
+            windowHeight={460}
+          >
+            <RedditIcon size={40} round />
+          </RedditShareButton>
+          <TwitterShareButton
+            url={`https://www.yarnplaywithshirley.com/blog/${format(post.publishedAt, 'YYYY/MM')}/${
+              post.slug.current
+            }`}
+            title={post.title}
+          >
+            <TwitterIcon size={40} round />
+          </TwitterShareButton>
         </VStack>
       </Box>
     </Layout>
