@@ -6,7 +6,7 @@ import BlogPost from '../components/blog-post'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import BlockText from '../components/block-text'
-import { Box, VStack } from '@chakra-ui/layout'
+import { Box, Stack } from '@chakra-ui/layout'
 import {
   PinterestIcon,
   PinterestShareButton,
@@ -135,8 +135,15 @@ const BlogPostTemplate = props => {
       )}
 
       {post && <BlogPost {...post} />}
-      <Box position='fixed' top='50%' transform='translateY(-50%)' zIndex='9999' left='8px'>
-        <VStack alignItems='center' color='white' spacing='8px'>
+      <Box
+        position='fixed'
+        top={[undefined, '50%']}
+        bottom={['8px', undefined]}
+        transform={['translateX(50%)', 'translateY(-50%)']}
+        zIndex='9999'
+        right={['50%', '8px']}
+      >
+        <Stack alignItems='center' direction={['row', 'column']} color='white' spacing='8px'>
           <PinterestShareButton
             media={post.mainImage.asset.fluid.srcWebp}
             url={`https://www.yarnplaywithshirley.com/blog/${format(post.publishedAt, 'YYYY/MM')}/${
@@ -181,7 +188,7 @@ const BlogPostTemplate = props => {
           >
             <TwitterIcon size={40} round />
           </TwitterShareButton>
-        </VStack>
+        </Stack>
       </Box>
     </Layout>
   )
